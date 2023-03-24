@@ -5,7 +5,7 @@ concurrency:
   cancel-in-progress: true
 
 env:
-  DOCKER_IMAGE_NAME: jlesage/baseimage-gui
+  DOCKER_IMAGE_NAME: eugenechen0514/ha_baseimage-gui
 
 on:
   push:
@@ -30,17 +30,18 @@ jobs:
       fail-fast: false
       matrix:
         info:
-          - '{ "tag_prefix": "alpine-3.13",  "baseimage": "jlesage/baseimage:alpine-3.13-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "alpine-3.14",  "baseimage": "jlesage/baseimage:alpine-3.14-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "alpine-3.15",  "baseimage": "jlesage/baseimage:alpine-3.15-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "alpine-3.16",  "baseimage": "jlesage/baseimage:alpine-3.16-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "alpine-3.17",  "baseimage": "jlesage/baseimage:alpine-3.17-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "debian-9",     "baseimage": "jlesage/baseimage:debian-9-v3.4.6",     "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "debian-10",    "baseimage": "jlesage/baseimage:debian-10-v3.4.6",    "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "debian-11",    "baseimage": "jlesage/baseimage:debian-11-v3.4.6",    "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "ubuntu-16.04", "baseimage": "jlesage/baseimage:ubuntu-16.04-v3.4.6", "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "ubuntu-18.04", "baseimage": "jlesage/baseimage:ubuntu-18.04-v3.4.6", "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "ubuntu-20.04", "baseimage": "jlesage/baseimage:ubuntu-20.04-v3.4.6", "platforms": "linux/amd64,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "alpine-3.13",  "baseimage": "jlesage/baseimage:alpine-3.13-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "alpine-3.14",  "baseimage": "jlesage/baseimage:alpine-3.14-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "alpine-3.15",  "baseimage": "jlesage/baseimage:alpine-3.15-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "alpine-3.16",  "baseimage": "jlesage/baseimage:alpine-3.16-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "alpine-3.17",  "baseimage": "jlesage/baseimage:alpine-3.17-v3.4.6",  "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "debian-9",     "baseimage": "jlesage/baseimage:debian-9-v3.4.6",     "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "debian-10",    "baseimage": "jlesage/baseimage:debian-10-v3.4.6",    "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "debian-11",    "baseimage": "jlesage/baseimage:debian-11-v3.4.6",    "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "ubuntu-16.04", "baseimage": "jlesage/baseimage:ubuntu-16.04-v3.4.6", "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "ubuntu-18.04", "baseimage": "jlesage/baseimage:ubuntu-18.04-v3.4.6", "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "ubuntu-20.04", "baseimage": "jlesage/baseimage:ubuntu-20.04-v3.4.6", "platforms": "linux/amd64,linux/arm/v7,linux/arm64/v8" }'
+          - '{ "tag_prefix": "aarch64-base-3.15", "baseimage": "eugenechen0514/ha_baseimage:aarch64-base-3.15-v0.0.2", "platforms": "platforms": "linux/arm/v7" }'
 
     steps:
       - name: Free disk space
@@ -241,16 +242,16 @@ jobs:
           repository: ${{ env.DOCKER_IMAGE_NAME }}
           readme-filepath: DOCKERHUB.md
 
-  notification:
-    name: Notification
-    needs: [ build, post-build ]
-    runs-on: ubuntu-20.04
-    if: ${{ always() }}
-
-    steps:
-      - name: Pushover notification
-        uses: desiderati/github-action-pushover@v1
-        with:
-          job-status: ${{ needs.build.result }}
-          pushover-api-token: ${{ secrets.PUSHOVER_API_TOKEN }}
-          pushover-user-key: ${{ secrets.PUSHOVER_USER_KEY }}
+#  notification:
+#    name: Notification
+#    needs: [ build, post-build ]
+#    runs-on: ubuntu-20.04
+#    if: ${{ always() }}
+#
+#    steps:
+#      - name: Pushover notification
+#        uses: desiderati/github-action-pushover@v1
+#        with:
+#          job-status: ${{ needs.build.result }}
+#          pushover-api-token: ${{ secrets.PUSHOVER_API_TOKEN }}
+#          pushover-user-key: ${{ secrets.PUSHOVER_USER_KEY }}
