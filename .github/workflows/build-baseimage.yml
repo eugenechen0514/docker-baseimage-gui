@@ -41,8 +41,10 @@ jobs:
 #          - '{ "tag_prefix": "ubuntu-16.04", "baseimage": "jlesage/baseimage:ubuntu-16.04-v3.4.6", "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
 #          - '{ "tag_prefix": "ubuntu-18.04", "baseimage": "jlesage/baseimage:ubuntu-18.04-v3.4.6", "platforms": "linux/amd64,linux/386,linux/arm/v7,linux/arm64/v8" }'
 #          - '{ "tag_prefix": "ubuntu-20.04", "baseimage": "jlesage/baseimage:ubuntu-20.04-v3.4.6", "platforms": "linux/amd64,linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "aarch64-base-3.16", "baseimage": "eugenechen0514/ha_baseimage:aarch64-base-3.16-v0.0.3", "platforms": "linux/arm/v7,linux/arm64/v8" }'
-          - '{ "tag_prefix": "amd64-base-3.16", "baseimage": "eugenechen0514/ha_baseimage:amd64-base-3.16-v0.0.3", "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "aarch64-base-3.16", "baseimage": "eugenechen0514/ha_baseimage:aarch64-base-3.16-v0.0.3", "platforms": "linux/arm/v7,linux/arm64/v8" }'
+#          - '{ "tag_prefix": "amd64-base-3.16", "baseimage": "eugenechen0514/ha_baseimage:amd64-base-3.16-v0.0.3", "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7,linux/arm64/v8" }'
+          - '{ "tag_prefix": "aarch64-base-3.16", "baseimage": "eugenechen0514/ha_baseimage:aarch64-base-3.16-v0.0.3", "platforms": "linux/arm/v7" }'
+          - '{ "tag_prefix": "amd64-base-3.16", "baseimage": "eugenechen0514/ha_baseimage:amd64-base-3.16-v0.0.3", "platforms": "linux/amd64,linux/386,linux/arm/v6,linux/arm/v7" }'
 
     steps:
       - name: Free disk space
