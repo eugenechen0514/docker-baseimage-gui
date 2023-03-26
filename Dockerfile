@@ -13,6 +13,7 @@ ARG ALPINE_PKGS="\
     openssl \
     # Needed to use netcat with unix socket.
     netcat-openbsd \
+    font-cantarell \
 "
 
 # Define the Debian/Ubuntu packages to be installed into the image.
